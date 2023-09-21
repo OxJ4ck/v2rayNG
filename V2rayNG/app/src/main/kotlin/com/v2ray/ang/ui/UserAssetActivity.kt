@@ -141,13 +141,11 @@ class UserAssetActivity : BaseActivity() {
     }
 
     private fun downloadGeoFiles() {
-        val httpPort = Utils.parseInt(settingsStorage?.decodeString(AppConfig.PREF_HTTP_PORT), AppConfig.PORT_HTTP.toInt())
-
         toast(R.string.msg_downloading_content)
         geofiles.forEach {
             //toast(getString(R.string.msg_downloading_content) + it)
             lifecycleScope.launch(Dispatchers.IO) {
-                val result = downloadGeo(it, 60000, httpPort)
+                val result = downloadGeo(it, 60000)
                 launch(Dispatchers.Main) {
                     if (result) {
                         toast(getString(R.string.toast_success) + " " + it)
@@ -160,20 +158,45 @@ class UserAssetActivity : BaseActivity() {
         }
     }
 
-    private fun downloadGeo(name: String, timeout: Int, httpPort: Int): Boolean {
-        val url = AppConfig.geoUrl + name
-        val targetTemp = File(extDir, name + "_temp")
+    private fun downloadGeo(name: String, timeout: Int): Boolean {
+        val assetName: String
+        val geoUrl: String
+        when (settingsStorage?.decodeString(AppConfig.PREF_ROUTING_ASSETS_PROVIDER)) {
+            "0" -> {
+                if (name == "geoip.dat") {
+                    assetName = name
+                    geoUrl = "https://raw.githubusercontent.com/v2fly/geoip/release/"
+                } else {
+                    assetName = "dlc.dat"
+                    geoUrl = "https://raw.githubusercontent.com/v2fly/domain-list-community/release/"
+                }
+            }
+            "1" -> {
+                assetName = name
+                geoUrl = "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/"
+            }
+            "2" -> {
+                assetName = name
+                geoUrl = "https://raw.githubusercontent.com/Chocolate4U/Iran-v2ray-rules/release/"
+            }
+            else -> {
+                if (name == "geoip.dat") {
+                    assetName = name
+                    geoUrl = "https://raw.githubusercontent.com/v2fly/geoip/release/"
+                } else {
+                    assetName = "dlc.dat"
+                    geoUrl = "https://raw.githubusercontent.com/v2fly/domain-list-community/release/"
+                }
+            }
+        }
+        val url = geoUrl + assetName
+        val targetTemp = File(extDir, assetName + "_temp")
         val target = File(extDir, name)
         var conn: HttpURLConnection? = null
         //Log.d(AppConfig.ANG_PACKAGE, url)
 
         try {
-            conn = URL(url).openConnection(
-                Proxy(
-                    Proxy.Type.HTTP,
-                    InetSocketAddress("127.0.0.1", httpPort)
-                )
-            ) as HttpURLConnection
+            conn = URL(url).openConnection() as HttpURLConnection
             conn.connectTimeout = timeout
             conn.readTimeout = timeout
             val inputStream = conn.inputStream

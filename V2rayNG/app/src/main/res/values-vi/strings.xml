@@ -115,6 +115,7 @@
     <string name="summary_pref_prefer_ipv6">Ưu tiên sử dụng địa chỉ IPv6 cho kết nối và lộ trình.</string>
 
     <string name="title_pref_routing">Lộ trình</string>
+    <string name="title_pref_routing_assets_provider">Nhà cung cấp tài sản địa lý</string>
     <string name="title_pref_routing_domain_strategy">Tùy chọn tên miền</string>
     <string name="title_pref_routing_mode">Tùy chỉnh quy tắc lộ trình</string>
     <string name="title_pref_routing_custom">Tùy chỉnh lộ trình</string>
@@ -229,6 +230,8 @@
         <item>Bỏ qua địa chỉ LAN rồi Proxy</item>
         <item>Bỏ qua địa chỉ đất liền rồi Proxy</item>
         <item>Bỏ qua LAN và địa chỉ đất liền rồi Proxy</item>
+        <item>Bỏ qua địa chỉ Iran rồi proxy</item>
+        <item>Bỏ qua địa chỉ LAN và Iran rồi proxy</item>
         <item>Kết nối trực tiếp toàn cầu</item>
     </string-array>
 

@@ -116,6 +116,7 @@
     <string name="summary_pref_prefer_ipv6">ترجیح دادن نشانی و مسیر های IPv6</string>
 
     <string name="title_pref_routing">مسیریابی</string>
+    <string name="title_pref_routing_assets_provider">ارائه دهنده فایل های مسیریابی</string>
     <string name="title_pref_routing_domain_strategy">استراتژی دامنه</string>
     <string name="title_pref_routing_mode">قوانین از پیش تعریف شده</string>
     <string name="title_pref_routing_custom">قوانین سفارشی</string>
@@ -227,6 +228,8 @@
         <item>دور زدن آدرس LAN و سپس پروکسی</item>
         <item>دور زذن آدرس mainland و سپس پروکسی</item>
         <item>دور زدن LAN و آدرس mainland و سپس پروکسی</item>
+        <item>دور زدن آدرس های ایران و سپس پروکسی</item>
+        <item>دور زدن LAN و آدرس های ایران و سپس پروکسی</item>
         <item>مستقیم سراسری</item>
     </string-array>
 
